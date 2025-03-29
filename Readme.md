@@ -15,6 +15,6 @@ The application is styled using CSS and features a responsive design.
 Follow these steps to set up and run the project:
 
 1. Clone the Repository
-bash
-git clone <repository_url>
-cd taskflow
+   
+    git clone <repository_url>
+    cd taskflow
