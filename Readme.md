@@ -16,7 +16,7 @@ Follow these steps to set up and run the project:
 
 1. Clone the Repository
 
-        git clone <repository_url>
+        git clone https://github.com/i-ares/Task-Flow.git
         cd taskflow
 
    
