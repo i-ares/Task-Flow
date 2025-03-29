@@ -15,6 +15,18 @@ The application is styled using CSS and features a responsive design.
 Follow these steps to set up and run the project:
 
 1. Clone the Repository
+
+        git clone <repository_url>
+        cd taskflow
+
    
-    git clone <repository_url>
-    cd taskflow
+2. Install Dependencies
+Run the following command to install all required dependencies:
+
+        npm install
+
+3. Start the Development Server
+Start the React development server with:
+
+        npm start
+
