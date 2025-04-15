@@ -5,22 +5,23 @@ import TaskColumn from './components/TaskColumn';
 import './App.css';
 
 function App() {
-  const [tasks, setTasks] = useState([]);
+  const [tasks, setTasks] = useState(() => {
+    const savedTasks = localStorage.getItem('taskflow_tasks');
+    return savedTasks ? JSON.parse(savedTasks) : [];
+  });
+  
   const [editId, setEditId] = useState(null);
-  const [taskId, setTaskId] = useState(1);
-
-  useEffect(() => {
-    const savedTasks = JSON.parse(localStorage.getItem('tasks')) || [];
-    setTasks(savedTasks);
-    
-    if (savedTasks.length > 0) {
-      const maxId = Math.max(...savedTasks.map(t => t.id));
-      setTaskId(maxId + 1);
+  const [taskId, setTaskId] = useState(() => {
+    const savedTasks = localStorage.getItem('taskflow_tasks');
+    if (savedTasks) {
+      const parsedTasks = JSON.parse(savedTasks);
+      return parsedTasks.length > 0 ? Math.max(...parsedTasks.map(t => t.id)) + 1 : 1;
     }
-  }, []);
+    return 1;
+  });
 
   useEffect(() => {
-    localStorage.setItem('tasks', JSON.stringify(tasks));
+    localStorage.setItem('taskflow_tasks', JSON.stringify(tasks));
   }, [tasks]);
 
   const addTask = (title, details, deadline) => {
@@ -65,6 +66,10 @@ function App() {
     return tasks.find(task => task.id === id);
   };
 
+  const cancelEdit = () => {
+    setEditId(null);
+  };
+
   const activeTasks = tasks.filter(task => !task.completed);
   const completedTasks = tasks.filter(task => task.completed);
 
@@ -75,7 +80,8 @@ function App() {
         addTask={addTask} 
         editId={editId} 
         startEdit={startEdit}
-        tasks={tasks} 
+        tasks={tasks}
+        onCancelEdit={cancelEdit} 
       />
       <div className="tasks-container">
         <TaskColumn 

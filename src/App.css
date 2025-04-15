@@ -176,3 +176,20 @@ button {
   width: 500px;
   word-wrap: break-word;
 }
+.form-buttons {
+  display: flex;
+  gap: 20px;
+  justify-content: flex-start;
+}
+.cancel-btn {
+  background: #f44336;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+.cancel-btn:hover {
+  background: #d32f2f;
+}

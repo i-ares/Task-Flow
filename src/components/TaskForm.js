@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-function TaskForm({ addTask, editId, startEdit, tasks }) {
+function TaskForm({ addTask, editId, startEdit, tasks, onCancelEdit }) {
   const [title, setTitle] = useState('');
   const [details, setDetails] = useState('');
   const [deadline, setDeadline] = useState('');
@@ -13,6 +13,8 @@ function TaskForm({ addTask, editId, startEdit, tasks }) {
         setDetails(taskToEdit.details);
         setDeadline(taskToEdit.deadline);
       }
+    } else {
+      clearForm();
     }
   }, [editId, tasks]);
 
@@ -26,6 +28,11 @@ function TaskForm({ addTask, editId, startEdit, tasks }) {
     setTitle('');
     setDetails('');
     setDeadline('');
+  };
+
+  const handleCancel = () => {
+    clearForm();
+    onCancelEdit();
   };
 
   return (
@@ -47,9 +54,16 @@ function TaskForm({ addTask, editId, startEdit, tasks }) {
           value={deadline}
           onChange={(e) => setDeadline(e.target.value)}
         />
-        <button type="submit" className="add-btn">
-          {editId === null ? 'Add Task' : 'Update Task'}
-        </button>
+        <div className="form-buttons">
+          <button type="submit" className="add-btn">
+            {editId === null ? 'Add Task' : 'Update Task'}
+          </button>
+          {editId !== null && (
+            <button type="button" className="cancel-btn" onClick={handleCancel}>
+              Cancel
+            </button>
+          )}
+        </div>
       </form>
     </div>
   );
